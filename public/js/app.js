@@ -10,6 +10,8 @@ angular.module('website', ['ngAnimate', 'ngTouch'])
         var data = [];
         var BASE_URL = 'https://drive.google.com/uc?export=download&id=';
         var slideIndex = 0;
+        document.addEventListener('contextmenu', function(event) { event.preventDefault()});
+
         $http.get('/api/files').then(function (files) {
             files.data.map(function(file) {
                 if(file.name.indexOf('.jpg') > -1) {
