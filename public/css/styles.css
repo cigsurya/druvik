@@ -2,6 +2,10 @@ body {
     overflow: hidden;
     background-color: #000000;
 }
+h1 {
+    color: aliceblue;
+    text-align: center;
+}
 
 .slider {
     width: 1000px;
