@@ -1,5 +1,5 @@
 angular.module('website', ['ngAnimate', 'ngTouch'])
-    .controller('MainCtrl', function ($scope, $http, $timeout) {
+    .controller('MainCtrl', function ($scope, $http, $interval) {
         // $scope.slides = [
         //     {image: 'https://drive.google.com/uc?export=download&id=1mtkZoRo3RYogFJu15rL_9YcYoDJveGzA', description: 'Image 00'},
         //     {image: 'https://drive.google.com/uc?export=download&id=1Yq75ArxZ_wy7ZjZEIajYDZtPDuWA_1Jx', description: 'Image 01'},
@@ -10,6 +10,8 @@ angular.module('website', ['ngAnimate', 'ngTouch'])
         var data = [];
         var BASE_URL = 'https://drive.google.com/uc?export=download&id=';
         var slideIndex = 0;
+        var intervalId;
+        $scope.isPlaying = true;
         document.addEventListener('contextmenu', function(event) { event.preventDefault()});
 
         $http.get('/api/files').then(function (files) {
@@ -19,20 +21,38 @@ angular.module('website', ['ngAnimate', 'ngTouch'])
                 }
             });
             $scope.slides = data;
-            $scope.direction = 'left';
+            $scope.direction = 'right';
             $scope.currentIndex = 0;
 
-            $scope.carousel();
-            //setTimeout(carousel, 3000);
+            $scope.start();
         });
 
+        $scope.pausePlaySlides = function () {
+            if ($scope.isPlaying) {
+                $scope.stop();
+            } else {
+                $scope.start();
+            }
+            $scope.isPlaying = !$scope.isPlaying;
+        }
         
 
         $scope.carousel = function () {
             $scope.nextSlide();
-            $timeout($scope.carousel, 3000); // Change image every 2 seconds
         }
 
+        $scope.stop = function (params) {
+            if(intervalId) {
+                $interval.cancel(intervalId);
+            }
+        }
+
+        $scope.start = function (params) {
+            if (intervalId) {
+                $interval.cancel(intervalId);
+            }
+            intervalId = $interval($scope.carousel, 3000);
+        }
         
 
         $scope.setCurrentSlideIndex = function (index) {
