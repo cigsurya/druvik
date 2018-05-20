@@ -5,7 +5,9 @@
   "main": "app.js",
   "dependencies": {
     "express": "^4.13.3",
-    "googleapis": "^27.0.0"
+    "googleapis": "^27.0.0",
+    "node-geocoder": "^3.22.0",
+    "node-where": "^1.1.0"
   },
   "scripts": {
     "start": "node app"

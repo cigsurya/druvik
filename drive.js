@@ -87,10 +87,10 @@ function listFiles(auth) {
             }
             const files = data.files;
             if (files.length) {
-                console.log('Files:');
-                files.map((file) => {
-                    console.log(`${file.name} (${file.id})`);
-                });
+                // console.log('Files:');
+                // files.map((file) => {
+                //     console.log(`${file.name} (${file.id})`);
+                // });
                 resolve(files);
             } else {
                 console.log('No files found.');
