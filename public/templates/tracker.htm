@@ -61,7 +61,7 @@
                         <img ng-src="assets/img/{{item.type}}" height="30" width="30" />
                     </td>
                     <td>
-                        <input type="datetime-local" id="activityTime" name="activityTime" ng-model="item.activityTime" />
+                        <input type="datetime-local" id="activityTime" name="activityTime" ng-model="item.activityTime" data-ng-change="changeActivityTime(item)"/>
                     </td>
                     <td>{{item.name}}</td>
                     <td ng-click="removeActivity(item)">

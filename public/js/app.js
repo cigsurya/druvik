@@ -139,6 +139,7 @@ app.controller('BabyCtrl', function ($scope) {
 
     $scope.doDiaperChange = function (event) {
         var item = {};
+        item.id = new Date().getTime();
         item.type = "diaper.png";
         item.activityTime = new Date();
         item.name = $scope.diaperChangeValue;
@@ -152,6 +153,7 @@ app.controller('BabyCtrl', function ($scope) {
 
     $scope.doFeed = function (event) {
         var item = {};
+        item.id = new Date().getTime();
         item.type = "feed.png";
         item.activityTime = new Date();
         item.name = $scope.feedTime;
@@ -163,7 +165,9 @@ app.controller('BabyCtrl', function ($scope) {
         $('#feedModal').modal('hide');
     }
 
-    $scope.editActivity = function (item) {}
+    $scope.changeActivityTime = function (item) {
+        localStorage.setItem("kidactivities", JSON.stringify($scope.activities));
+    }
 
     $scope.removeActivity = function (item) {
         if ($scope.activities.indexOf(item) > -1) {
