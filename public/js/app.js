@@ -16,7 +16,7 @@ app.controller('MainCtrl', function ($scope, $http, $interval) {
     var intervalId;
     $scope.isPlaying = true;
     
-    // document.addEventListener('contextmenu', function(event) { event.preventDefault()});
+     document.addEventListener('contextmenu', function(event) { event.preventDefault()});
 
     $http.get('/api/files').then(function (files) {
         files.data.map(function(file) {
