@@ -51,7 +51,7 @@ app.controller('MainCtrl', function ($scope, $http, $interval) {
         if (intervalId) {
             $interval.cancel(intervalId);
         }
-        intervalId = $interval($scope.carousel, 3000);
+        intervalId = $interval($scope.carousel, 6000);
     }
     
 
