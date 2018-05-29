@@ -11,5 +11,8 @@
   },
   "scripts": {
     "start": "node app"
+  },
+  "devDependencies": {
+    "request": "^2.87.0"
   }
 }

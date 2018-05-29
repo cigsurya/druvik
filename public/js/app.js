@@ -16,6 +16,7 @@ app.controller('MainCtrl', function ($scope, $http, $interval) {
     var slideIndex = 0;
     var intervalId;
     $scope.isPlaying = true;
+    $scope.isAccessDenied = false;
     
     // document.addEventListener('contextmenu', function(event) { event.preventDefault()});
 
@@ -111,19 +112,33 @@ app.controller('MainCtrl', function ($scope, $http, $interval) {
     
 
     $scope.getLocationByAPI = function() {
-        $.getJSON("http://ip-api.com/json/?callback=?", function(data) {
+        $http.get('/location').then( (data) => {
+            data = data.data;
             data.time = new Date();
-            $http.post('/location', data).then(function(){
+            $http.post('/location', data).then(() => {
 
-            }, function(){
+            }, (error) => {
 
             });
             if (BLOCKED_REGIONS.indexOf(data.region.toLowerCase()) >= 0) {
-                alert('You guys get Peanuts');
+                $scope.isAccessDenied = true;
             } else {
                 startSlideshow();
             }
         });
+        // $.getJSON("http://ip-api.com/json/?callback=?", function(data) {
+        //     data.time = new Date();
+        //     $http.post('/location', data).then(function(){
+
+        //     }, function(){
+
+        //     });
+        //     if (BLOCKED_REGIONS.indexOf(data.region.toLowerCase()) >= 0) {
+        //         $scope.isAccessDenied = true;
+        //     } else {
+        //         startSlideshow();
+        //     }
+        // });
     }
 
     function startSlideshow() {

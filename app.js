@@ -4,6 +4,7 @@ var path = require('path');
 let drive = require('./drive');
 let where = require('node-where');
 let fs = require('fs');
+let request = require('request');
 
 
 var PORT = process.env.PORT || 5000;
@@ -22,6 +23,13 @@ app.get('/', function(req, res) {
 app.post('/location', (req, res) => {
 	writeToLogs(JSON.stringify(req.body));
 	res.status(200).send('Success');
+});
+
+
+app.get('/location', (req, res) => {
+    request('http://ip-api.com/json', (error, response, body) => {
+        res.status(200).send(body);
+    });
 });
 
 const writeToLogs = (data) => new Promise((resolve, reject) => {
