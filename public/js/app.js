@@ -12,11 +12,12 @@ app.config(function ($routeProvider) {
 app.controller('MainCtrl', function ($scope, $http, $interval) {
     var data = [];
     var BASE_URL = 'https://drive.google.com/uc?export=download&id=';
+    var BLOCKED_REGIONS = ['va'];
     var slideIndex = 0;
     var intervalId;
     $scope.isPlaying = true;
     
-     document.addEventListener('contextmenu', function(event) { event.preventDefault()});
+    // document.addEventListener('contextmenu', function(event) { event.preventDefault()});
 
     $http.get('/api/files').then(function (files) {
         files.data.map(function(file) {
@@ -107,14 +108,32 @@ app.controller('MainCtrl', function ($scope, $http, $interval) {
     }
 
 
-    $scope.slides = data;
-    $scope.direction = 'right';
-    $scope.currentIndex = 0;
+    
 
-    $scope.start();
+    $scope.getLocationByAPI = function() {
+        $.getJSON("http://ip-api.com/json/?callback=?", function(data) {
+            data.time = new Date();
+            $http.post('/location', data).then(function(){
 
+            }, function(){
 
+            });
+            if (BLOCKED_REGIONS.indexOf(data.region.toLowerCase()) >= 0) {
+                alert('You guys get Peanuts');
+            } else {
+                startSlideshow();
+            }
+        });
+    }
 
+    function startSlideshow() {
+        $scope.slides = data;
+        $scope.direction = 'right';
+        $scope.currentIndex = 0;
+        $scope.start();
+    }
+
+    $scope.getLocationByAPI();
 
     //$scope.getLocation();
 });
