@@ -148,9 +148,9 @@ app.controller('MainCtrl', function ($scope, $http, $interval) {
         $scope.start();
     }
 
-    $scope.getLocationByAPI();
+    // $scope.getLocationByAPI();
 
-    //$scope.getLocation();
+    // $scope.getLocation();
 });
 
 app.controller('BabyCtrl', function ($scope) {
