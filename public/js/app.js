@@ -11,6 +11,7 @@ app.config(function ($routeProvider) {
 
 app.controller('MainCtrl', function ($scope, $http, $interval) {
     var data = [];
+    var ACCEPTABLE_FORMATS = ["jpg", "jpeg", "png", "JPG", "JPEG", "PNG"];
     var BASE_URL = 'https://drive.google.com/uc?export=download&id=';
     var BLOCKED_REGIONS = ['va'];
     var slideIndex = 0;
@@ -22,7 +23,7 @@ app.controller('MainCtrl', function ($scope, $http, $interval) {
 
     $http.get('/api/files').then(function (files) {
         files.data.map(function(file) {
-            if(file.name.indexOf('.jpg') > -1) {
+            if(file.name.toLowerCase().indexOf('.jpg') > -1 || file.name.toLowerCase().indexOf('.jpeg') > -1) {
                 data.push({image:BASE_URL + file.id, desc: file.name});
             }
         });
